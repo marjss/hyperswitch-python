@@ -1,45 +1,285 @@
-# Hyperswitch Python WSL Development
+# Hyperswitch Python – Custom Routing Assignment
 
-This project is configured to run entirely inside Ubuntu WSL.
+![Python](https://img.shields.io/badge/Python-3.13-blue)
+![Rust](https://img.shields.io/badge/Rust-Stable-orange)
+![Docker](https://img.shields.io/badge/Docker-Compose-blue)
+![License](https://img.shields.io/badge/Assignment-Techdome-success)
 
-## Prerequisites
-- WSL2 with Ubuntu installed
-- Docker installed inside Ubuntu WSL
-- VS Code with Remote - WSL and Dev Containers extensions
+A fork of **Juspay Hyperswitch** implementing a **custom payment routing strategy** as part of the Techdome Venture Studio Senior/Staff Engineer take-home assignment.
 
-## Project location
-The project is copied into the Linux home directory:
+## Assignment Overview
 
-```bash
-cd ~/projects/hyperswitch-python
+This project extends Hyperswitch with a custom routing strategy that demonstrates how routing decisions can be customized while keeping the implementation modular, testable, and production-friendly.
+
+### Objective
+
+Implement one non-trivial routing rule with:
+
+- deterministic routing decisions
+- extensible architecture
+- automated tests
+- observable routing decisions
+- Docker-based setup
+
+---
+
+# Tech Stack
+
+- Python 3.13
+- Rust (PyO3 + Maturin)
+- Docker & Docker Compose
+- Pytest
+- Hyperswitch
+
+---
+
+# Project Structure
+
+```
+.
+├── src/
+│   ├── routing/
+│   ├── models/
+│   ├── services/
+│   └── ...
+├── tests/
+├── Dockerfile
+├── docker-compose.yml
+├── pyproject.toml
+├── Cargo.toml
+├── DECISIONS.md
+└── README.md
 ```
 
-## Build
+---
+
+# Features
+
+- ✅ Custom payment routing
+- ✅ Modular routing engine
+- ✅ Dockerized development environment
+- ✅ Unit tests
+- ✅ Decision logging
+- ✅ Extensible architecture
+
+---
+
+# Prerequisites
+
+- Docker Desktop
+- Docker Compose
+- Git
+- Python 3.13 (optional for local development)
+
+---
+
+# Getting Started
+
+Clone the repository
+
+```bash
+git clone https://github.com/marjss/hyperswitch-python.git
+cd hyperswitch-python
+```
+
+Build Docker image
 
 ```bash
 docker compose build
 ```
 
-## Run tests
+Start development container
 
 ```bash
-docker compose run --rm app python -m pytest -q
+docker compose run --rm app sh
 ```
 
-## Development shell
+or
 
 ```bash
-make shell
+docker compose up
 ```
 
-## VS Code Dev Container
+---
 
-Open the project folder in VS Code and choose:
+# Running Tests
 
-- Remote-Containers: Reopen in Container
+```bash
+pytest
+```
 
-The dev container uses the Dockerfile in the project root and installs Python, Rust toolchain, maturin, and pytest.
+or
 
-## Notes
-- This environment is Linux-native and does not require Windows-specific tooling.
-- The project source is mounted from the WSL filesystem for best performance.
+```bash
+docker compose run --rm app pytest
+```
+
+---
+
+# Custom Routing Logic
+
+## Strategy
+
+**(Replace this section with your chosen implementation.)**
+
+Example:
+
+### BIN Based Routing
+
+Rules:
+
+- RuPay BINs → Domestic Connector
+- Visa / Mastercard → Global Connector
+- Unknown BIN → Default connector
+
+Decision example
+
+```
+Input
+
+BIN: 607442
+Currency: INR
+Amount: 500
+
+↓
+
+Domestic Connector
+```
+
+Routing decisions are logged for observability.
+
+---
+
+# Example Request
+
+```bash
+curl ...
+```
+
+Example response
+
+```json
+{
+    "connector":"stripe",
+    "routing_reason":"BIN matched domestic routing policy"
+}
+```
+
+---
+
+# Running Inside Docker
+
+Open shell
+
+```bash
+docker compose run --rm app sh
+```
+
+Run tests
+
+```bash
+pytest
+```
+
+Install package
+
+```bash
+pip install -e .
+```
+
+---
+
+# Development
+
+Useful commands
+
+```bash
+docker compose build
+
+docker compose run --rm app sh
+
+pytest
+
+pip install -e .
+
+cargo fmt
+
+cargo test
+```
+
+---
+
+# Design Principles
+
+The routing implementation focuses on
+
+- Single Responsibility Principle
+- Extensibility
+- Testability
+- Deterministic decisions
+- Production readability
+
+---
+
+# Testing
+
+Current test coverage includes
+
+- Happy path
+- Edge case
+- Failure path
+
+Tests can be executed using
+
+```bash
+pytest
+```
+
+---
+
+# Future Improvements
+
+Given additional time I would add
+
+- Metrics (Prometheus)
+- Routing trace endpoint
+- Configurable routing rules
+- Connector health scoring
+- Dynamic routing configuration
+- OpenTelemetry instrumentation
+
+---
+
+# Decisions
+
+See
+
+```
+DECISIONS.md
+```
+
+for architecture decisions, trade-offs, limitations, and future work.
+
+---
+
+# Demo
+
+A short walkthrough is available in the submitted Loom video demonstrating
+
+- setup
+- routing flow
+- custom routing
+- tests
+- project structure
+
+---
+
+# Author
+
+Sudhanshu
+
+GitHub
+
+https://github.com/marjss
+
+---
