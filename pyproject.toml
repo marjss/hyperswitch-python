@@ -1,0 +1,20 @@
+[build-system]
+requires = ["maturin>=1.5,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "hyperswitch-python"
+version = "0.1.0"
+description = "Python package with a Rust-backed core for Hyperswitch"
+requires-python = ">=3.11"
+classifiers = [
+  "Programming Language :: Python",
+  "Programming Language :: Rust",
+]
+packages = [
+  { include = "hyperswitch_python", from = "src" },
+]
+
+[tool.maturin]
+module-name = "hyperswitch_python._hyperswitch_python"
+features = []
